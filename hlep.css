@@ -1,0 +1,171 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8f9fc;
+    color: #333;
+}
+
+
+/* Navbar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 50px;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar nav a {
+    margin: 0 12px;
+    text-decoration: none;
+    color: #444;
+}
+
+.navbar nav a.active {
+    color: #246bfd;
+    font-weight: bold;
+}
+
+.nav-btns button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.login {
+    background: transparent;
+    border: 1px solid #246bfd;
+    color: #246bfd;
+    border-radius: 6px;
+}
+
+.signup {
+    background: #246bfd;
+    color: white;
+    border-radius: 6px;
+}
+
+
+/* Hero */
+
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero h1 {
+    font-size: 34px;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: 0 auto 25px;
+    color: #555;
+}
+
+.search-bar {
+    width: 60%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+
+/* Categories */
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 30px 60px;
+}
+
+.cat-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+
+.cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.07);
+}
+
+.cat-card img {
+    width: 40px;
+}
+
+.cat-card h3 {
+    margin: 10px 0 6px;
+}
+
+
+/* FAQ */
+
+.faq {
+    padding: 40px 60px;
+}
+
+.faq details {
+    background: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.faq summary {
+    font-weight: bold;
+}
+
+
+/* Support */
+
+.support {
+    padding: 40px 60px;
+    text-align: center;
+}
+
+.support-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.support-card {
+    width: 280px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+button.primary-btn {
+    background: #246bfd;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+}
+
+button.secondary-btn {
+    background: transparent;
+    border: 1px solid #246bfd;
+    color: #246bfd;
+    padding: 10px 16px;
+    border-radius: 8px;
+}

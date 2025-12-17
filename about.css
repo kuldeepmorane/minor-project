@@ -1,0 +1,159 @@
+/* GLOBAL */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: #ffffff;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+/* NAVBAR */
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.navbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar nav a {
+    margin: 0 12px;
+    color: #555;
+}
+
+.navbar nav a.active {
+    color: #00b894;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #00b894;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+/* HERO */
+
+.hero {
+    background: #082F45;
+    color: white;
+    padding: 90px 40px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: auto;
+    font-size: 17px;
+    opacity: 0.85;
+}
+
+.btn-light {
+    margin-top: 20px;
+    background: white;
+    color: #0b2149;
+    padding: 10px 22px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* SECTIONS */
+
+section {
+    padding: 60px 60px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: #0b2149;
+}
+
+section p {
+    max-width: 700px;
+    margin: auto;
+    font-size: 17px;
+    line-height: 26px;
+    color: #555;
+}
+
+
+/* TIMELINE */
+
+.timeline {
+    background: #f8f9fa;
+    padding: 70px 40px;
+}
+
+.timeline-item {
+    background: white;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 70%;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+.timeline-item span {
+    display: inline-block;
+    font-weight: bold;
+    color: #00b894;
+    font-size: 18px;
+}
+
+.timeline-item h3 {
+    margin: 5px 0;
+    font-size: 20px;
+    color: #0b2149;
+}
+
+.timeline-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #fafafa;
+    color: #444;
+    margin-top: 40px;
+}

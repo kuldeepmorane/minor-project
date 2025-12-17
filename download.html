@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Notes</title>
+    <link rel="stylesheet" href="download.css">
+    <script src="download.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Note Shering</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="upload.html">Upload</a>
+            <a href="#" class="active">My Account</a>
+        </nav>
+
+        <div class="nav-icons">
+            <span class="icon">🔔</span>
+            <span class="icon profile">🟢</span>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Download Notes</h1>
+        <p>Browse, search, and download from our extensive library of notes.</p>
+    </div>
+
+    <!-- Main container -->
+    <div class="container">
+
+        <!-- Sidebar Left -->
+        <aside class="sidebar">
+
+            <!-- Search -->
+            <div class="search-box">
+                <input type="text" placeholder="Search notes...">
+            </div>
+
+            <!-- Categories -->
+            <div class="sidebar-section">
+                <h3>Categories</h3>
+                <label><input type="checkbox" checked> All Notes</label>
+                <label><input type="checkbox"> Computer Science Eng</label>
+                <label><input type="checkbox"> Machenical Engineering </label>
+                <label><input type="checkbox"> Civil Engineering</label>
+                <label><input type="checkbox"> Electrical Engineering</label>
+            </div>
+
+            <!-- Sort -->
+            <div class="sidebar-section">
+                <h3>Sort By</h3>
+                <select>
+                <option>Most Recent</option>
+                <option>Oldest</option>
+                <option>File Size</option>
+            </select>
+            </div>
+
+        </aside>
+
+        <!-- Notes List -->
+        <main class="content">
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="active">All Notes</button>
+                <button>Featured</button>
+                <button>Newest</button>
+            </div>
+
+            <!-- Notes Cards -->
+            <div class="notes-grid">
+
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="tag pdf">PDF</div>
+                    <h2>Calculus I - Final Exam Review</h2>
+                    <p>Comprehensive summary of key concepts, theorems, and examples...</p>
+
+                    <span class="meta">By: User123 • Oct 26, 2023 • 2.5 MB</span>
+
+                    <button class="download-btn">⬇ Download</button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="tag docx">DOCX</div>
+                    <h2>World War II Timelines</h2>
+                    <p>Major events, battles, and turning points from 1939–1945...</p>
+
+                    <span class="meta">By: HistoryBuff22 • Oct 24, 2023 • 1.1 MB</span>
+
+                    <button class="download-btn">⬇ Download</button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="tag pdf">PDF</div>
+                    <h2>Photosynthesis Explained</h2>
+                    <p>Visual guide to the process of photosynthesis with diagrams...</p>
+
+                    <span class="meta">By: SciGeek • Oct 22, 2023 • 4.8 MB</span>
+
+                    <button class="download-btn">⬇ Download</button>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card">
+                    <div class="tag zip">ZIP</div>
+                    <h2>Intro to Python: Cheat Sheet</h2>
+                    <p>A handy one-page reference for variables, loops, functions...</p>
+
+                    <span class="meta">By: CodeWizard • Oct 20, 2023 • 0.5 MB</span>
+
+                    <button class="download-btn">⬇ Download</button>
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="prev">← Previous</button>
+
+                <div class="pages">
+                    <span class="active">1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>...</span>
+                    <span>10</span>
+                </div>
+
+                <button class="next">Next →</button>
+            </div>
+
+        </main>
+
+    </div>
+
+
+</body>
+
+</html>
