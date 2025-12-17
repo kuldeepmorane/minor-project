@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Content</title>
+    <link rel="stylesheet" href="upload.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Note Shering</div>
+
+        <nav>
+            <a href="home.html">Home</a>
+            <!-- <a href="#">My Notes</a> -->
+            <a href="upload.html" class="active">Upload</a>
+        </nav>
+
+        <div class="nav-right">
+            <span class="icon">🌙</span>
+            <span class="profile ">👤</span>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-header ">
+        <h1>Upload Content</h1>
+        <p>Upload files and notes to share securely.</p>
+    </section>
+
+    <!-- Upload Box -->
+    <section class="upload-box ">
+
+        <div class="drop-area ">
+            <div class="upload-icon ">☁️</div>
+
+            <h3>Drag & drop files here</h3>
+            <p>Supports: PDF, DOCX, TXT, JPG. Max file size: 25MB</p>
+
+            <button class="select-btn">Select File</button>
+            <input type="file" id="fileInput" multiple hidden>
+        </div>
+
+    </section>
+
+    <!-- Uploading List -->
+    <section class="uploading-section ">
+        <h2>Uploading</h2>
+        <script src="upload.js"></script>
+</body>
+
+</html>
