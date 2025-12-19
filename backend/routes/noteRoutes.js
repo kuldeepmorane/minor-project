@@ -1,33 +1,41 @@
 const express = require("express");
 const multer = require("multer");
-const note = require("../models/note");
+const Note = require("../models/note"); // ✅ FIXED
 
 const router = express.Router();
 
+// Multer config
 const storage = multer.diskStorage({
-    destination: "uploads/",
-    filename: (req, file, cd) => {
-        cd(null, Date.now() + "-" + file.originalname);
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname);
     }
 });
 
 const upload = multer({ storage });
 
-// Upload note
+// Upload API
 router.post("/upload", upload.single("file"), async(req, res) => {
-    const newNote = new Note({
-        title: req.body.title,
-        subject: req.body.subject,
-        file: req.file.filename
-    });
+    try {
+        const newNote = new Note({
+            title: req.body.title,
+            subject: req.body.subject,
+            file: req.file.filename
+        });
 
-    await newNote.save();
-    res.json({ message: "Note uploaded successfully" });
+        await newNote.save();
+        res.status(201).json({ message: "Note uploaded successfully" });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 // Get all notes
 router.get("/", async(req, res) => {
-    const notes = await Note.find();
+    const notes = await Note.find().sort({ date: -1 });
     res.json(notes);
 });
 

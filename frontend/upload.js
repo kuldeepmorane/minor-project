@@ -1,4 +1,4 @@
-// 1️⃣ Wait until page fully loads
+//  Wait until page fully loads
 document.addEventListener("DOMContentLoaded", () => {
 
     // Navbar active link
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2️⃣ Select file button
+    //  Select file button
     const selectBtn = document.querySelector(".select-btn");
     const fileInput = document.getElementById("fileInput");
     const fileListContainer = document.querySelector(".file-list");
@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
         fileInput.click();
     });
 
-    //  Handle file selection
+    // Handle file selection
     fileInput.addEventListener("change", (e) => {
         handleFiles(e.target.files);
     });
 
-    //  Drag & drop
+    // Drag & drop
     dropArea.addEventListener("dragover", (e) => {
         e.preventDefault();
         dropArea.classList.add("dragover");
@@ -41,10 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
         handleFiles(e.dataTransfer.files);
     });
 
-    //  Function to display files
+    //  REAL UPLOAD FUNCTION (fixed)
     function handleFiles(files) {
         for (let i = 0; i < files.length; i++) {
+
             const file = files[i];
+
             const fileRow = document.createElement("div");
             fileRow.classList.add("file-row");
 
@@ -56,36 +58,61 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p>${(file.size / 1024 / 1024).toFixed(2)} MB</p>
                     </div>
                 </div>
+
                 <div class="progress">
-                    <div class="progress-bar blue" style="width: 0%;"></div>
+                    <div class="progress-bar blue" style="width:0%"></div>
                 </div>
+
                 <span class="percent">0%</span>
                 <span class="cancel">✖</span>
             `;
 
             fileListContainer.appendChild(fileRow);
 
-            // Fake upload animation (for beginner demo)
-            let progress = 0;
             const progressBar = fileRow.querySelector(".progress-bar");
             const percent = fileRow.querySelector(".percent");
-            const interval = setInterval(() => {
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    percent.innerText = "Uploaded";
-                } else {
-                    progress += 1;
+            const cancelBtn = fileRow.querySelector(".cancel");
+
+            //  REAL UPLOAD
+            const xhr = new XMLHttpRequest();
+            const formData = new FormData();
+
+            formData.append("title", file.name);
+            formData.append("subject", "General");
+            formData.append("file", file);
+
+            xhr.open("POST", "http://localhost:5000/api/notes/upload");
+
+            // Progress
+            xhr.upload.onprogress = (e) => {
+                if (e.lengthComputable) {
+                    const progress = Math.round((e.loaded / e.total) * 100);
                     progressBar.style.width = progress + "%";
                     percent.innerText = progress + "%";
                 }
-            }, 50);
+            };
 
-            // Cancel button
-            const cancelBtn = fileRow.querySelector(".cancel");
+            // Success
+            xhr.onload = () => {
+                if (xhr.status === 201 || xhr.status === 200) {
+                    percent.innerText = "Uploaded ✅";
+                } else {
+                    percent.innerText = "Failed ❌";
+                }
+            };
+
+            // Error
+            xhr.onerror = () => {
+                percent.innerText = "Error ❌";
+            };
+
+            // Cancel upload
             cancelBtn.addEventListener("click", () => {
+                xhr.abort();
                 fileRow.remove();
-                clearInterval(interval);
             });
+
+            xhr.send(formData);
         }
     }
 
