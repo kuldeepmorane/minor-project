@@ -1,24 +1,29 @@
 const express = require("express");
 const multer = require("multer");
-const Note = require("../models/note"); // ✅ FIXED
+const Note = require("../models/note");
 
 const router = express.Router();
 
-// Multer config
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "uploads/");
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
+        // spaces remove to avoid %20 error
+        const safeName = file.originalname.replace(/\s+/g, "_");
+        cb(null, Date.now() + "-" + safeName);
     }
 });
 
 const upload = multer({ storage });
 
-// Upload API
+
 router.post("/upload", upload.single("file"), async(req, res) => {
     try {
+        if (!req.file) {
+            return res.status(400).json({ message: "File not uploaded" });
+        }
+
         const newNote = new Note({
             title: req.body.title,
             subject: req.body.subject,
@@ -26,17 +31,25 @@ router.post("/upload", upload.single("file"), async(req, res) => {
         });
 
         await newNote.save();
-        res.status(201).json({ message: "Note uploaded successfully" });
+
+        res.status(201).json({
+            message: "Note uploaded successfully",
+            note: newNote
+        });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get all notes
+
 router.get("/", async(req, res) => {
-    const notes = await Note.find().sort({ date: -1 });
-    res.json(notes);
+    try {
+        const notes = await Note.find().sort({ date: -1 });
+        res.json(notes);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
 });
 
 module.exports = router;

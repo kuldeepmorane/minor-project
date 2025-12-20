@@ -1,64 +1,109 @@
-//  Navbar active link logic
-const navLinks = document.querySelectorAll("nav a");
+let allNotes = []; // saare notes yaha store honge
 
-navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.forEach(l => l.classList.remove("active"));
-        link.classList.add("active");
+// FETCH NOTES FROM BACKEND
+
+fetch("http://localhost:5000/api/notes")
+    .then(res => res.json())
+    .then(notes => {
+        allNotes = notes; //  store notes
+        renderNotes(allNotes); //  show all
+    })
+    .catch(err => {
+        console.error("Failed to load notes:", err);
     });
-});
 
+// RENDER NOTES FUNCTION
 
-// Tabs switching logic
-const tabs = document.querySelectorAll(".tabs button");
-const notesGrid = document.querySelector(".notes-grid"); // parent container
+function renderNotes(notes) {
+    const notesGrid = document.querySelector(".notes-grid");
+    if (!notesGrid) return;
 
-tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
+    notesGrid.innerHTML = "";
 
-        // For simplicity, we just show an alert for now
-        // Later you can filter notes dynamically based on tab
-        // alert("You clicked tab: " + tab.innerText);
+    if (notes.length === 0) {
+        notesGrid.innerHTML = "<p>No notes found</p>";
+        return;
+    }
+
+    notes.forEach(note => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+            <div class="tag">FILE</div>
+            <h2>${note.title}</h2>
+            <p>${note.subject || "General"}</p>
+            <span class="meta">
+                ${new Date(note.date).toDateString()}
+            </span>
+            <a 
+                class="download-btn" 
+                href="http://localhost:5000/uploads/${note.file}" 
+                target="_blank"
+            >
+                ⬇ Download
+            </a>
+        `;
+
+        notesGrid.appendChild(card);
     });
-});
 
+    attachDownloadAnimation();
+}
 
-//  Download button click effect
-const downloadBtns = document.querySelectorAll(".download-btn");
+// DOWNLOAD BUTTON ANIMATION
+function attachDownloadAnimation() {
+    const downloadBtns = document.querySelectorAll(".download-btn");
 
-downloadBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        btn.style.transform = "scale(0.95)"; // button shrink effect
-        setTimeout(() => {
-            btn.style.transform = "scale(1)";
-        }, 150);
-
-        // Alert to show user clicked download
-        // Later you can integrate backend API to actually download
-        alert("Downloading file...");
+    downloadBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            btn.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                btn.style.transform = "scale(1)";
+            }, 150);
+        });
     });
+}
+
+// SEARCH FUNCTIONALITY
+
+const searchInput = document.querySelector(".search-box input");
+
+searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase();
+
+    const filteredNotes = allNotes.filter(note =>
+        note.title.toLowerCase().includes(value) ||
+        (note.subject && note.subject.toLowerCase().includes(value))
+    );
+
+    renderNotes(filteredNotes);
 });
 
 
-//  Pagination logic (simple)
-const prevBtn = document.querySelector(".prev");
-const nextBtn = document.querySelector(".next");
-const pages = document.querySelectorAll(".pages span");
+// CATEGORY FILTER
 
-pages.forEach(page => {
-    page.addEventListener("click", () => {
-        pages.forEach(p => p.classList.remove("active"));
-        page.classList.add("active");
-        alert("Switched to page " + page.innerText);
+const categoryCheckboxes = document.querySelectorAll(
+    ".sidebar-section input[type='checkbox']"
+);
+
+categoryCheckboxes.forEach(box => {
+    box.addEventListener("change", () => {
+
+        const selectedCategories = [...categoryCheckboxes]
+            .filter(cb => cb.checked)
+            .map(cb => cb.parentElement.innerText.trim());
+
+        // All Notes checked
+        if (selectedCategories.includes("All Notes")) {
+            renderNotes(allNotes);
+            return;
+        }
+
+        const filteredNotes = allNotes.filter(note =>
+            selectedCategories.includes(note.subject)
+        );
+
+        renderNotes(filteredNotes);
     });
-});
-
-prevBtn.addEventListener("click", () => {
-    alert("Previous page clicked");
-});
-
-nextBtn.addEventListener("click", () => {
-    alert("Next page clicked");
 });
